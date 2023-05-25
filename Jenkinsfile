@@ -1,22 +1,16 @@
 pipeline {
     agent any
-    tools{
-        maven 'maven_3_5_0'
-    }
+
     stages{
+        stage('clone from github'){
+            steps{
+                git branch: 'master', url: 'https://github.com/rashidbekraximov/spring-boot-with-jenkins'
+            }
+        }
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rashidbekraximov/spring-boot-with-jenkins']]])
-                sh 'mvn clean install'
+                sh "mvn clean install package"
             }
         }
-        stage('Build docker image'){
-            steps{
-                script{
-                    sh 'docker build -t javatechie/spring-boot-jenkins .'
-                }
-            }
-        }
-
     }
 }

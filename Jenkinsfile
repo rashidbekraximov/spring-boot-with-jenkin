@@ -21,7 +21,6 @@ pipeline {
             steps{
                 script{
                     bat 'docker login -u rashidbek -p hashcode8864'
-
                 }
             }
         }

@@ -7,22 +7,22 @@ pipeline {
         stage('clone from github'){
             steps{
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rashidbekraximov/spring-boot-with-jenkins']])
-                ssh 'mvn clean install'
+                sh 'mvn clean install'
             }
         }
         stage('Build docker image'){
             steps{
                 script{
-                    ssh 'docker build -t spring-boot-with-jenkins .'
+                    sh 'docker build -t spring-boot-with-jenkins .'
                 }
             }
         }
         stage('Push to Docker Hub'){
             steps{
                 script{
-                    ssh 'docker login -u rashidbek -p hashcode8864'
-                    ssh 'docker tag spring-boot-with-jenkins rashidbek/spring-boot-with-jenkins:latest'
-                    ssh 'docker push rashidbek/spring-boot-with-jenkins:latest'
+                    sh 'docker login -u rashidbek -p hashcode8864'
+                    sh 'docker tag spring-boot-with-jenkins rashidbek/spring-boot-with-jenkins:latest'
+                    sh 'docker push rashidbek/spring-boot-with-jenkins:latest'
                 }
             }
         }

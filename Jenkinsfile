@@ -21,6 +21,7 @@ pipeline {
             steps{
                 script{
                     bat 'docker login -u rashidbek -p hashcode8864'
+                    bat 'docker push genius/spring-boot-with-jenkins'
                 }
             }
         }

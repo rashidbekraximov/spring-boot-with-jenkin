@@ -13,7 +13,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    bat 'docker build -t genius/spring-boot-with-jenkins .'
+                    bat 'docker build -t spring-boot-with-jenkins .'
                 }
             }
         }
@@ -21,7 +21,8 @@ pipeline {
             steps{
                 script{
                     bat 'docker login -u rashidbek -p hashcode8864'
-                    bat 'docker push genius/spring-boot-with-jenkins'
+                    bat 'docker tag spring-boot-with-jenkins genius/spring-boot-with-jenkins:latest'
+                    bat 'docker push genius/spring-boot-with-jenkins:latest'
                 }
             }
         }
